@@ -67,7 +67,7 @@ if uploaded:
     # -------------------------------
     st.subheader("📊 Visualisasi Data")
 
-   # Top 10 Jenis Aktiva
+    # Top 10 Jenis Aktiva
     st.markdown("**Top 10 Jenis Aktiva Penyumbang Biaya Penyusutan (per bulan)**")
     biaya_per_jenis = (
         df.groupby("Jenis_Aktiva_Tetap")["Biaya_Penyusutan_Bulan"]
@@ -77,8 +77,7 @@ if uploaded:
     )
     fig1, ax1 = plt.subplots(figsize=(5,3))
     biaya_per_jenis.plot(kind="bar", ax=ax1, color="skyblue")
-    labels = [textwrap.fill(label, 15) for label in biaya_per_jenis.index]
-    ax1.set_xticklabels(labels, rotation=45, ha="right")
+    ax1.set_xticklabels(biaya_per_jenis.index, rotation=45, ha="right")
     ax1.set_ylabel("Biaya Penyusutan (Rp)")
     st.pyplot(fig1, use_container_width=False)
 
@@ -92,8 +91,7 @@ if uploaded:
     )
     fig2, ax2 = plt.subplots(figsize=(5,3))
     biaya_per_gol.plot(kind="bar", ax=ax2, color="orange")
-    labels2 = [textwrap.fill(label, 15) for label in biaya_per_gol.index]
-    ax2.set_xticklabels(labels2, rotation=45, ha="right")
+    ax2.set_xticklabels(biaya_per_gol.index, rotation=45, ha="right")
     ax2.set_ylabel("Biaya Penyusutan (Rp)")
     st.pyplot(fig2, use_container_width=False)
 
