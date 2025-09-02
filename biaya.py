@@ -75,10 +75,11 @@ if uploaded:
         .sort_values(ascending=False)
         .head(10)
     )
-    fig1, ax1 = plt.subplots(figsize=(5,3))
-    biaya_per_jenis.plot(kind="bar", ax=ax1, color="skyblue")
-    ax1.set_xticklabels(biaya_per_jenis.index, rotation=45, ha="right")
-    ax1.set_ylabel("Biaya Penyusutan (Rp)")
+    fig1, ax1 = plt.subplots(figsize=(6,4))
+    biaya_per_jenis.plot(kind="barh", ax=ax1, color="skyblue")
+    ax1.set_xlabel("Biaya Penyusutan (Rp)")
+    ax1.set_ylabel("Jenis Aktiva")
+    plt.tight_layout()
     st.pyplot(fig1, use_container_width=False)
 
     # Top 10 Golongan Penyusutan
@@ -89,10 +90,11 @@ if uploaded:
         .sort_values(ascending=False)
         .head(10)
     )
-    fig2, ax2 = plt.subplots(figsize=(5,3))
-    biaya_per_gol.plot(kind="bar", ax=ax2, color="orange")
-    ax2.set_xticklabels(biaya_per_gol.index, rotation=45, ha="right")
-    ax2.set_ylabel("Biaya Penyusutan (Rp)")
+    fig2, ax2 = plt.subplots(figsize=(6,4))
+    biaya_per_gol.plot(kind="barh", ax=ax2, color="orange")
+    ax2.set_xlabel("Biaya Penyusutan (Rp)")
+    ax2.set_ylabel("Golongan Penyusutan")
+    plt.tight_layout()
     st.pyplot(fig2, use_container_width=False)
 
     # Histogram Rasio Penyusutan
@@ -104,10 +106,11 @@ if uploaded:
     rasio_positive = df[df["Rasio_Penyusutan"] > 0]["Rasio_Penyusutan"]
     rasio_filtered = rasio_positive[rasio_positive < 20]
 
-    fig3, ax3 = plt.subplots(figsize=(5,3))
+    fig3, ax3 = plt.subplots(figsize=(6,4))
     ax3.hist(rasio_filtered, bins=30, color="green", edgecolor="black")
     ax3.set_xlabel("Rasio Penyusutan (<20)")
     ax3.set_ylabel("Jumlah Aset")
+    plt.tight_layout()
     st.pyplot(fig3, use_container_width=False)
 
     # -------------------------------
