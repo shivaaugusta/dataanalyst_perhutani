@@ -75,12 +75,13 @@ if uploaded:
         .sort_values(ascending=False)
         .head(10)
     )
-    fig1, ax1 = plt.subplots()
+    fig1, ax1 = plt.subplots(figsize=(6,4))
     biaya_per_jenis.plot(kind="bar", ax=ax1, color="skyblue")
     ax1.set_ylabel("Biaya Penyusutan (Rp)")
     ax1.set_xlabel("Jenis Aktiva")
     plt.xticks(rotation=45, ha="right")
-    st.pyplot(fig1)
+    st.pyplot(fig1, use_container_width=False)
+
 
     # Top 10 Golongan Penyusutan
     st.markdown("**Top 10 Golongan Penyusutan**")
