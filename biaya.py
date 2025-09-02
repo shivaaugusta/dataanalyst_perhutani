@@ -52,14 +52,14 @@ if uploaded:
     # -------------------------------
     st.subheader("📌 Ringkasan Total")
     col1, col2, col3 = st.columns(3)
-    col1.metric("Total Nilai Perolehan", f"{df['Nilai_Perolehan'].sum():,.0f} Rp")
+    col1.metric("Total Nilai Perolehan", f"Rp {df['Nilai_Perolehan'].sum():,.0f}")
     col2.metric(
         "Total Biaya Penyusutan Bulan",
-        f"{df['Biaya_Penyusutan_Bulan'].sum():,.0f} Rp",
+        f"Rp {df['Biaya_Penyusutan_Bulan'].sum():,.0f}",
     )
     col3.metric(
         "Total Akumulasi Penyusutan",
-        f"{df['Akumulasi_Penyusutan'].sum():,.0f} Rp",
+        f"Rp {df['Akumulasi_Penyusutan'].sum():,.0f}",
     )
 
     # -------------------------------
@@ -135,7 +135,7 @@ if uploaded:
         filtered = df[mask]
         st.write(f"Jumlah aset ditemukan: {len(filtered)}")
         st.write(
-            f"Total nilai perolehan aset tersebut: {filtered['Nilai_Perolehan'].sum():,.0f} Rp"
+            f"Total nilai perolehan aset tersebut: Rp {filtered['Nilai_Perolehan'].sum():,.0f}"
         )
         st.dataframe(
             filtered[
