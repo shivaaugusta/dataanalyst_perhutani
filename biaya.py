@@ -67,51 +67,63 @@ if uploaded:
     # -------------------------------
     st.subheader("📊 Visualisasi Data")
 
+    # -------------------------------
     # Top 10 Jenis Aktiva
-    st.markdown("**Top 10 Jenis Aktiva Penyumbang Biaya Penyusutan (per bulan)**")
-    biaya_per_jenis = (
-        df.groupby("Jenis_Aktiva_Tetap")["Biaya_Penyusutan_Bulan"]
-        .sum()
-        .sort_values(ascending=False)
-        .head(10)
-    )
-    fig1, ax1 = plt.subplots(figsize=(6,4))
-    biaya_per_jenis.plot(kind="barh", ax=ax1, color="skyblue")
-    ax1.set_xlabel("Biaya Penyusutan (Rp)")
-    ax1.set_ylabel("Jenis Aktiva")
-    plt.tight_layout()
-    st.pyplot(fig1, use_container_width=False)
-
-    # Top 10 Golongan Penyusutan
-    st.markdown("**Top 10 Golongan Penyusutan**")
-    biaya_per_gol = (
-        df.groupby("Golongan_Penyusutan")["Biaya_Penyusutan_Bulan"]
-        .sum()
-        .sort_values(ascending=False)
-        .head(10)
-    )
-    fig2, ax2 = plt.subplots(figsize=(6,4))
-    biaya_per_gol.plot(kind="barh", ax=ax2, color="orange")
-    ax2.set_xlabel("Biaya Penyusutan (Rp)")
-    ax2.set_ylabel("Golongan Penyusutan")
-    plt.tight_layout()
-    st.pyplot(fig2, use_container_width=False)
-
-    # Histogram Rasio Penyusutan
-    st.markdown("**Distribusi Rasio Penyusutan**")
-    if "Rasio_Penyusutan" not in df.columns:
-        df["Rasio_Penyusutan"] = (
-            df["Biaya_Penyusutan_Sampai_Bulan"] / df["Nilai_Buku_Bulan_Ini"]
+    # -------------------------------
+    col_left, col_center, col_right = st.columns([1,2,1])
+    with col_center:
+        st.markdown("**Top 10 Jenis Aktiva Penyumbang Biaya Penyusutan (per bulan)**")
+        biaya_per_jenis = (
+            df.groupby("Jenis_Aktiva_Tetap")["Biaya_Penyusutan_Bulan"]
+            .sum()
+            .sort_values(ascending=False)
+            .head(10)
         )
-    rasio_positive = df[df["Rasio_Penyusutan"] > 0]["Rasio_Penyusutan"]
-    rasio_filtered = rasio_positive[rasio_positive < 20]
-
-    fig3, ax3 = plt.subplots(figsize=(6,4))
-    ax3.hist(rasio_filtered, bins=30, color="green", edgecolor="black")
-    ax3.set_xlabel("Rasio Penyusutan (<20)")
-    ax3.set_ylabel("Jumlah Aset")
-    plt.tight_layout()
-    st.pyplot(fig3, use_container_width=False)
+        fig1, ax1 = plt.subplots(figsize=(4,3))  # ✅ kecil
+        biaya_per_jenis.plot(kind="barh", ax=ax1, color="skyblue")
+        ax1.set_xlabel("Biaya Penyusutan (Rp)")
+        ax1.set_ylabel("Jenis Aktiva")
+        plt.tight_layout()
+        st.pyplot(fig1, use_container_width=False)
+    
+    # -------------------------------
+    # Top 10 Golongan Penyusutan
+    # -------------------------------
+    col_left, col_center, col_right = st.columns([1,2,1])
+    with col_center:
+        st.markdown("**Top 10 Golongan Penyusutan**")
+        biaya_per_gol = (
+            df.groupby("Golongan_Penyusutan")["Biaya_Penyusutan_Bulan"]
+            .sum()
+            .sort_values(ascending=False)
+            .head(10)
+        )
+        fig2, ax2 = plt.subplots(figsize=(4,3))  # ✅ kecil
+        biaya_per_gol.plot(kind="barh", ax=ax2, color="orange")
+        ax2.set_xlabel("Biaya Penyusutan (Rp)")
+        ax2.set_ylabel("Golongan Penyusutan")
+        plt.tight_layout()
+        st.pyplot(fig2, use_container_width=False)
+    
+    # -------------------------------
+    # Histogram Rasio Penyusutan
+    # -------------------------------
+    col_left, col_center, col_right = st.columns([1,2,1])
+    with col_center:
+        st.markdown("**Distribusi Rasio Penyusutan**")
+        if "Rasio_Penyusutan" not in df.columns:
+            df["Rasio_Penyusutan"] = (
+                df["Biaya_Penyusutan_Sampai_Bulan"] / df["Nilai_Buku_Bulan_Ini"]
+            )
+        rasio_positive = df[df["Rasio_Penyusutan"] > 0]["Rasio_Penyusutan"]
+        rasio_filtered = rasio_positive[rasio_positive < 20]
+    
+        fig3, ax3 = plt.subplots(figsize=(4,3))  # ✅ kecil
+        ax3.hist(rasio_filtered, bins=30, color="green", edgecolor="black")
+        ax3.set_xlabel("Rasio Penyusutan (<20)")
+        ax3.set_ylabel("Jumlah Aset")
+        plt.tight_layout()
+        st.pyplot(fig3, use_container_width=False)
 
     # -------------------------------
     # Top Aset
