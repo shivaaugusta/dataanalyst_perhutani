@@ -67,7 +67,7 @@ if uploaded:
     # -------------------------------
     st.subheader("📊 Visualisasi Data")
 
-    # Top 10 Jenis Aktiva
+   # Top 10 Jenis Aktiva
     st.markdown("**Top 10 Jenis Aktiva Penyumbang Biaya Penyusutan (per bulan)**")
     biaya_per_jenis = (
         df.groupby("Jenis_Aktiva_Tetap")["Biaya_Penyusutan_Bulan"]
@@ -75,13 +75,12 @@ if uploaded:
         .sort_values(ascending=False)
         .head(10)
     )
-    fig1, ax1 = plt.subplots(figsize=(6,4))
+    fig1, ax1 = plt.subplots(figsize=(5,3))
     biaya_per_jenis.plot(kind="bar", ax=ax1, color="skyblue")
+    labels = [textwrap.fill(label, 15) for label in biaya_per_jenis.index]
+    ax1.set_xticklabels(labels, rotation=45, ha="right")
     ax1.set_ylabel("Biaya Penyusutan (Rp)")
-    ax1.set_xlabel("Jenis Aktiva")
-    plt.xticks(rotation=45, ha="right")
     st.pyplot(fig1, use_container_width=False)
-
 
     # Top 10 Golongan Penyusutan
     st.markdown("**Top 10 Golongan Penyusutan**")
@@ -91,12 +90,12 @@ if uploaded:
         .sort_values(ascending=False)
         .head(10)
     )
-    fig2, ax2 = plt.subplots()
+    fig2, ax2 = plt.subplots(figsize=(5,3))
     biaya_per_gol.plot(kind="bar", ax=ax2, color="orange")
+    labels2 = [textwrap.fill(label, 15) for label in biaya_per_gol.index]
+    ax2.set_xticklabels(labels2, rotation=45, ha="right")
     ax2.set_ylabel("Biaya Penyusutan (Rp)")
-    ax2.set_xlabel("Golongan Penyusutan")
-    plt.xticks(rotation=45, ha="right")
-    st.pyplot(fig2)
+    st.pyplot(fig2, use_container_width=False)
 
     # Histogram Rasio Penyusutan
     st.markdown("**Distribusi Rasio Penyusutan**")
@@ -107,11 +106,11 @@ if uploaded:
     rasio_positive = df[df["Rasio_Penyusutan"] > 0]["Rasio_Penyusutan"]
     rasio_filtered = rasio_positive[rasio_positive < 20]
 
-    fig3, ax3 = plt.subplots()
+    fig3, ax3 = plt.subplots(figsize=(5,3))
     ax3.hist(rasio_filtered, bins=30, color="green", edgecolor="black")
     ax3.set_xlabel("Rasio Penyusutan (<20)")
     ax3.set_ylabel("Jumlah Aset")
-    st.pyplot(fig3)
+    st.pyplot(fig3, use_container_width=False)
 
     # -------------------------------
     # Top Aset
